@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function TimeConverter() {
+            
+            const [numbers, setNumbers] = React.useState(0);
+            let [Inverted, setInverted] = React.useState(false);
+    
+            const changeHandler = (event) => {
+                console.log(event.target.value);
+                setNumbers(event.target.value);
+            };
+            const invertHandler = () => {
+                console.log(Inverted);
+                setInverted((current) => !current);
+                setNumbers(0);
+            }
+            const resetValue = () => { setNumbers(0); }
+            return (
+                <div>
+                    <h1 className="header">Time Converter Form {numbers}</h1>
+                    <label htmlFor="first">분</label>
+                    <input id="first" type="number" placeholder="분" value={Inverted ? numbers*60 : numbers} onChange={changeHandler} disabled={Inverted ? true : false} /> <br />
+                    <label htmlFor="">시간</label>
+                    <input id="second" type="number" placeholder="시간" value={Inverted ? numbers : Math.floor(numbers/60)}  onChange={changeHandler} disabled={!Inverted ? true : false} />
+                    <button onClick={resetValue}>Reset</button>
+                    <button onClick={invertHandler}>Invert</button>
+                </div>
+            );
+        }
+
+        function DistanceConverter() {
+            
+            const [numbers, setNumbers] = React.useState("0");
+            let [Inverted, setInverted] = React.useState(false);
+    
+            const changeHandler = (event) => {
+                console.log(event.target.value);
+                setNumbers(event.target.value);
+            };
+            const invertHandler = () => {
+                console.log(Inverted);
+                setInverted((current) => !current);
+                setNumbers(0);
+            }
+            const resetValue = () => { setNumbers(0); }
+            return (
+                <div>
+                    <h1 className="header">Distance Converter Form {numbers}</h1>
+                    <label htmlFor="first">KM</label>
+                    <input id="first" type="number" placeholder="KM" value={Inverted ? (numbers*1.609).toFixed(3) : numbers} onChange={changeHandler} disabled={Inverted ? true : false} /> <br />
+                    <label htmlFor="">MILES</label>
+                    <input id="second" type="number" placeholder="MILES" value={Inverted ? numbers : (numbers/1.609).toFixed(3)}  onChange={changeHandler} disabled={!Inverted ? true : false} />
+                    <button onClick={resetValue}>Reset</button>
+                    <button onClick={invertHandler}>Invert</button>
+                </div>
+            );
+        }
+
+        function App() {
+            const [index, setIndex] = React.useState(0);
+            const onChange = (event) => {
+                setIndex(event.target.value);
+            }
+            return (
+                <div>
+                    <select value={index} onChange={onChange}>
+                        <option value="0">Select Unit Converter</option> 
+                        <option value="1">Time Converter</option>
+                        <option value="2">Distance Converter</option>   
+                    </select>
+                    <hr />
+                    {index == "0" ? "Please select unit you want to convert" : null}
+                    {index == "1" ? <TimeConverter /> : null}
+                    {index == "2" ? <DistanceConverter /> : null}
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, root);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

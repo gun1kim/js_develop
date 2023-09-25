@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        let counter = 0;
+        function increaseCounter() {
+            counter += 1;
+            console.log(counter);
+            render();
+        }
+
+        function render() {
+            ReactDOM.render(<App />, root);
+            // root.render(<App/>);
+        }
+
+        function P() {
+            return (
+                <p id="count" onMouseEnter={() => console.log("마우스 엔터 이벤트 발생")}>
+                {counter}번 클릭했습니다.
+                </p>
+            )   
+        }
+        
+        
+        const Btn = () => (
+            <button onClick={increaseCounter}>
+            Click
+            </button>
+        )
+        
+        // const App = 
+        //     <div>
+        //         <P />
+        //         <Btn />
+        //     </div> // 상수
+
+        const App = () => 
+            (<div>
+                <P />
+                <Btn />
+            </div>) // 함수형 컴포넌트
+    
+        // ReactDOM.render(<App />, root);
+        render();
+        // ReactDOM.render(App, root);
+
+    </script>
+    
+    <!-- <script>
+        let counter = 0;
+        function clickHandler() {
+            const p = document.getElementById("p");
+            const btn = document.getElementById("btn");
+            counter++;
+            p.innerText = `${counter}번 클릭했습니다.`;
+
+
+        } 
+    </script> -->
+</head>
+<body>
+    <div id="root"></div>
+    <!-- <p id="p">0번 클릭했습니다.</p>
+    <button id="btn" onclick="clickHandler()">클릭하세요</button> -->
+
+    
+</body>
+</html>
